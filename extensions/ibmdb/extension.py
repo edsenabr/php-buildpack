@@ -297,7 +297,18 @@ class IBMDBInstaller(ExtensionHelper):
         self._logMsg ('Installed PHP ' + self._ctx['PHPSOURCE_VERSION'] + ' source files')
 
     def install_extensions(self):
-        pecl = self._phpBinDir + '/pecl'
+        self._compilationEnv['PATH'] = self._phpBinDir + ':' + self._compilationEnv['PATH']
+        self._runCmd(self._buildPeclEnv(),
+                        self._ctx['BUILD_DIR'],
+                        ['pear', 'update-channels'],
+                        True)
+
+        self._runCmd(self._buildPeclEnv(),
+                        self._ctx['BUILD_DIR'],
+                        ['pecl', 'update-channels'],
+                        True)
+
+
 
         for ibmdbExtn in ['ibm_db2', 'pdo_ibm']: #, 'PDO', 'PDO_IBM']:
             #self._install_direct(
