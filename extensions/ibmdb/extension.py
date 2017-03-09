@@ -317,7 +317,7 @@ class IBMDBInstaller(ExtensionHelper):
         self._compilationEnv['PHP_PEAR_INSTALL_DIR'] = self._phpInstallDir
 
         self._logMsg('Path is now: ' + self._compilationEnv['PATH'])
-        phpizeSh = self._findPhpizeFile(self._phpizeDir, self._ctx['PHP_VERSION'])
+        phpizeSh = self._phpBinDir + '/phpize'
         self._runCmd(self._compilationEnv, self._phpizeDir, ['chmod', '777', phpizeSh])
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], [phpizeSh])
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['./configure', '--with-IBM_DB2=' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']])
