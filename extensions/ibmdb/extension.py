@@ -353,6 +353,9 @@ class IBMDBInstaller(ExtensionHelper):
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/main/*', includePath])
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/ext/*' , includePath])
 
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ls', '-l', buildPath])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ls', '-l', includePath])
+
 
 #OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/main/php.h: No such file or directory
 #2017-03-09T07:58:43.85-0300 [STG/0]      OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/Zend/zend_modules.h: No such file or directory
