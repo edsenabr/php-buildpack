@@ -320,7 +320,7 @@ class IBMDBInstaller(ExtensionHelper):
             self._logMsg('running pecl for : ' + ibmdbExtn)
             self._runCmd(self._buildPeclEnv(),
                          self._ctx['BUILD_DIR'],
-                         [pecl, 'install', ibmdbExtn],
+                         ['pecl', 'install', ibmdbExtn],
                          True)
         self._compilationEnv['PATH'] = self._phpizeDir + ':' + self._phpBinDir + ':' + self._compilationEnv['PATH']
         self._compilationEnv['LD_LIBRARY_PATH'] = os.path.join(self._phpRoot, 'lib')
