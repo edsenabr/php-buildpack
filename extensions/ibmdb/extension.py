@@ -344,14 +344,13 @@ class IBMDBInstaller(ExtensionHelper):
         self._compilationEnv['PHP_PEAR_PHP_BIN'] = self._phpBinPath
         self._compilationEnv['PHP_PEAR_INSTALL_DIR'] = self._phpInstallDir
 
-        buildPath = '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/lib/php'
-        includePath = '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php'
+        buildPath = '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/lib'
+        includePath = '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include'
 
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['mkdir', '-p', buildPath])
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['mkdir', '-p', includePath])
-        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/build' , buildPath])
-        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/main/*', includePath])
-        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/ext/*' , includePath])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'], buildPath + '/php' ])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'], includePath + '/php' ])
 
         self._logMsg('Showinc content of : ' + buildPath)
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['find', buildPath])
