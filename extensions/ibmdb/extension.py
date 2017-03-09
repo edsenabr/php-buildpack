@@ -225,7 +225,7 @@ class IBMDBInstaller(ExtensionHelper):
 
     def install_extensions(self):
         extnDownloadDir = os.path.join(self._ctx['DOWNLOAD_DIR'],
-                                    'pdo_ibm_extn-' + self._ctx['IBM_PDO_VERSION'])
+                                    'pdo_ibm_extn-' + self._ctx['PDO_IBM_VERSION'])
         self._install_direct(
             self._ctx['PDO_IBM_DLURL'],
             None,
