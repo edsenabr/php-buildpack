@@ -308,6 +308,16 @@ class IBMDBInstaller(ExtensionHelper):
                         ['pecl', 'update-channels'],
                         True)
 
+        self._runCmd(self._buildPeclEnv(),
+                        self._ctx['BUILD_DIR'],
+                        ['pear', 'updgrade'],
+                        True)
+
+        self._runCmd(self._buildPeclEnv(),
+                        self._ctx['BUILD_DIR'],
+                        ['pecl', 'upgrade'],
+                        True)
+
 
 
         for ibmdbExtn in ['ibm_db2', 'pdo_ibm']: #, 'PDO', 'PDO_IBM']:
