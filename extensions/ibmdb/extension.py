@@ -51,9 +51,9 @@ PKGDOWNLOADS =  {
     #'IBM_DB2_DLFILE': 'ibm_db2-v{IBM_DB2_VERSION}.tar.gz',
     #'IBM_DB2_DLURL': '{IBM_DB2_REPOSITORY}/raw/master/{IBM_DB2_DLFILE}',
 
-    'PDO_IBM_VERSION': '11.1',
+    'PDO_IBM_VERSION': '5.3.6',
     'PDO_IBM_REPOSITORY': 'https://github.com/fishfin/ibmdb-drivers-linuxx64',
-    'PDO_IBM_DLFILE': 'db2_db2driver_for_php64_linuxx64_v{PDO_IBM_VERSION}.tar.gz',
+    'PDO_IBM_DLFILE': 'db2_db2driver_for_php64_linuxx64_v{IBMDBCLIDRIVER_VERSION}.tar.gz',
     'PDO_IBM_DLURL': '{PDO_IBM_REPOSITORY}/raw/master/{PDO_IBM_DLFILE}',
 
 
@@ -182,8 +182,8 @@ class IBMDBInstaller(ExtensionHelper):
             pos = lines.index(extns[-1]) + 1
         else:
             pos = lines.index('#{PHP_EXTENSIONS}\n') + 1
-        lines.insert(pos, 'extension=ibm_db2_5.3.6_nts.so\n')
-        lines.insert(pos, 'extension=pdo_ibm_5.3.6_nts.so\n')
+        lines.insert(pos, 'extension=ibm_db2_{PDO_IBM_VERSION}_nts.so\n')
+        lines.insert(pos, 'extension=pdo_ibm_{PDO_IBM_VERSION}_nts.so\n')
         lines.append('\n')
         self._log.info('Writing ' + self._phpIniPath)
         with open(self._phpIniPath, 'wt') as phpIni:
@@ -215,7 +215,7 @@ class IBMDBInstaller(ExtensionHelper):
 
             self._runCmd(os.environ, self._ctx['BUILD_DIR'],
                         ['mv',
-                         os.path.join(extnDownloadDir, self._zendModuleApiNo, ibmdbExtn.lower() + '.so'),
+                         os.path.join(extnDownloadDir, self._zendModuleApiNo, '*_{PDO_IBM_VERSION}_{PHP_THREAD_SAFETY}.so'),
                          self._phpExtnDir])
 
             self._logMsg ('Installed ' + ibmdbExtn + ' Extension to ' + self._phpExtnDir)
