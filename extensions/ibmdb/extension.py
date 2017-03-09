@@ -46,15 +46,15 @@ PKGDOWNLOADS =  {
     'IBMDBCLIDRIVER2_DLFILE': 'ibm_data_server_driver_for_odbc_cli_linuxx64_v{IBMDBCLIDRIVER_VERSION}_2of2.tar.gz',
     'IBMDBCLIDRIVER2_DLURL': '{IBMDBCLIDRIVER_REPOSITORY}/raw/master/{IBMDBCLIDRIVER2_DLFILE}',
 
-    'IBM_DB2_VERSION': '1.9.9',
-    'IBM_DB2_REPOSITORY': 'https://github.com/fishfin/ibmdb-drivers-linuxx64',
-    'IBM_DB2_DLFILE': 'ibm_db2-v{IBM_DB2_VERSION}.tar.gz',
-    'IBM_DB2_DLURL': '{IBM_DB2_REPOSITORY}/raw/master/{IBM_DB2_DLFILE}',
+    #'IBM_DB2_VERSION': '1.9.9',
+    #'IBM_DB2_REPOSITORY': 'https://github.com/fishfin/ibmdb-drivers-linuxx64',
+    #'IBM_DB2_DLFILE': 'ibm_db2-v{IBM_DB2_VERSION}.tar.gz',
+    #'IBM_DB2_DLURL': '{IBM_DB2_REPOSITORY}/raw/master/{IBM_DB2_DLFILE}',
 
     'PDO_IBM_VERSION': '11.1',
     'PDO_IBM_REPOSITORY': 'https://github.com/fishfin/ibmdb-drivers-linuxx64',
-    'PDO_IBM_DLFILE': 'db2_db2driver_for_php64_linuxx64_v{IBM_DB2_VERSION}.tar.gz',
-    'PDO_IBM_DLURL': '{IBM_DB2_REPOSITORY}/raw/master/{IBM_DB2_DLFILE}',
+    'PDO_IBM_DLFILE': 'db2_db2driver_for_php64_linuxx64_v{PDO_IBM_VERSION}.tar.gz',
+    'PDO_IBM_DLURL': '{PDO_IBM_REPOSITORY}/raw/master/{PDO_IBM_DLFILE}',
 
 
 }
