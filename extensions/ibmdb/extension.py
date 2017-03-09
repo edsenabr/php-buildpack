@@ -306,6 +306,7 @@ class IBMDBInstaller(ExtensionHelper):
             #    self._ctx[ibmdbExtn.upper() + '_DLDIR'],
             #    self._ctx[ibmdbExtn.upper() + '_DLFILE'],
             #    True)
+            self._logMsg('running pecl for : ' + ibmdbExtn)
             self._runCmd(self._buildPeclEnv(),
                          self._ctx['BUILD_DIR'],
                          [pecl, 'install', ibmdbExtn],
@@ -318,19 +319,19 @@ class IBMDBInstaller(ExtensionHelper):
         self._compilationEnv['PHP_PEAR_PHP_BIN'] = self._phpBinPath
         self._compilationEnv['PHP_PEAR_INSTALL_DIR'] = self._phpInstallDir
 
-        self._logMsg('Path is now: ' + self._compilationEnv['PATH'])
-        phpizeSh = self._phpBinDir + '/phpize'
-        self._logMsg('PHPize is: ' + phpizeSh)
+        #self._logMsg('Path is now: ' + self._compilationEnv['PATH'])
+        #phpizeSh = self._phpBinDir + '/phpize'
+        #self._logMsg('PHPize is: ' + phpizeSh)
         #self._runCmd(self._compilationEnv, self._phpizeDir, ['chmod', '777', phpizeSh])
-        self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], [phpizeSh], True)
-        self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['./configure', '--with-IBM_DB2=' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']])
-        self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['make'])
-        self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['make', 'install'])
+        #self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], [phpizeSh], True)
+        #self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['./configure', '--with-IBM_DB2=' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']])
+        #self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['make'])
+        #self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['make', 'install'])
 
-        self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], [phpizeSh])
-        self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], ['./configure', '--with-pdo-ibm=' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']])
-        self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], ['make'])
-        self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], ['make', 'install'])
+        #self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], [phpizeSh])
+        #self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], ['./configure', '--with-pdo-ibm=' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']])
+        #self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], ['make'])
+        #self._runCmd(self._compilationEnv, self._ctx['PDO_IBM_DLDIR'], ['make', 'install'])
 
 
         self._modifyPhpIni()
