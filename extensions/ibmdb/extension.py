@@ -300,23 +300,38 @@ class IBMDBInstaller(ExtensionHelper):
         self._compilationEnv['PATH'] = self._phpBinDir + ':' + self._compilationEnv['PATH']
         self._runCmd(self._buildPeclEnv(),
                         self._ctx['BUILD_DIR'],
-                        ['pear', 'update-channels'],
+                        ['pear', 'config-set', 'php_dir', self._phpRoot],
                         True)
 
         self._runCmd(self._buildPeclEnv(),
                         self._ctx['BUILD_DIR'],
-                        ['pecl', 'update-channels'],
+                        ['pear', 'config-set', 'default_channel', 'pecl.php.net'],
                         True)
 
         self._runCmd(self._buildPeclEnv(),
                         self._ctx['BUILD_DIR'],
-                        ['pear', 'updgrade'],
+                        ['pear', 'config-set', 'ext_dir', self._phpExtnDir],
                         True)
 
         self._runCmd(self._buildPeclEnv(),
                         self._ctx['BUILD_DIR'],
-                        ['pecl', 'upgrade'],
+                        ['pear', 'config-set', 'php_bin', self._phpBinPath],
                         True)
+
+        #self._runCmd(self._buildPeclEnv(),
+        #                self._ctx['BUILD_DIR'],
+        #                ['pecl', 'update-channels'],
+        #                True)
+#
+ #       self._runCmd(self._buildPeclEnv(),
+  #                      self._ctx['BUILD_DIR'],
+   #                     ['pear', 'updgrade'],
+    #                    True)
+#
+ #       self._runCmd(self._buildPeclEnv(),
+  #                      self._ctx['BUILD_DIR'],
+   #                     ['pecl', 'upgrade'],
+    #                    True)
 
 
 
