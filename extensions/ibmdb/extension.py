@@ -201,7 +201,7 @@ class IBMDBInstaller(ExtensionHelper):
 
         self._logMsg ('Installed IBMDB CLI Drivers to ' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR'])
 
-    def install_extensions(self):
+    def install_extensions_old(self):
         for ibmdbExtn in ['PDO_IBM']: #, 'PDO', 'PDO_IBM']:
         #for ibmdbExtn in ['IBM_DB2']: #, 'PDO', 'PDO_IBM']:
             extnDownloadDir = os.path.join(self._ctx['DOWNLOAD_DIR'],
@@ -215,13 +215,35 @@ class IBMDBInstaller(ExtensionHelper):
 
             self._runCmd(os.environ, self._ctx['BUILD_DIR'],
                         ['mv',
-                         os.path.join(extnDownloadDir, self._zendModuleApiNo, '*_', CONSTANTS['PDO_IBM_VERSION'], '_', CONSTANTS['PHP_THREAD_SAFETY'], '.so'),
+                         os.path.join(extnDownloadDir, self._zendModuleApiNo, '*_', self._ctx['PDO_IBM_VERSION'], '_', CONSTANTS['PHP_THREAD_SAFETY'], '.so'),
                          self._phpExtnDir])
 
             self._logMsg ('Installed ' + ibmdbExtn + ' Extension to ' + self._phpExtnDir)
 
         self._modifyPhpIni()
         #self._log.info(os.getenv('PATH'))
+
+    def install_extensions(self):
+        extnDownloadDir = os.path.join(self._ctx['DOWNLOAD_DIR'],
+                                    'pdo_ibm_extn-' + self._ctx['IBM_PDO_VERSION'])
+        self._install_direct(
+            self._ctx['PDO_IBM_DLURL'],
+            None,
+            extnDownloadDir,
+            self._ctx['PDO_IBM_DLFILE'],
+            True)
+
+        #rmExtns = '*_nts.so' if CONSTANTS['PHP_THREAD_SAFETY'] == 'ts' else '*_ts.so'
+        #self._runCmd(os.environ, tempDir, ['rm', '-f', rmExtns])
+        self._runCmd(os.environ, tempDir,
+            ['mv', 'ibm_db2*' + CONSTANTS['PHP_THREAD_SAFETY'] + '.so', os.path.join(self._phpExtnDir, 'ibm_db2.so')])
+        self._runCmd(os.environ, tempDir,
+            ['mv', 'pdo_ibm*' + CONSTANTS['PHP_THREAD_SAFETY'] + '.so', os.path.join(self._phpExtnDir, 'pdo_ibm.so')])
+        self._runCmd(os.environ, tempDir, ['rm', '-rf', extnDownloadDir])
+
+        self._modifyPhpIni()
+
+        self._log.info(__file__ + "->install_extensions completed")
 
     def cleanup(self):
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['rm', '-rf', self._ctx['DOWNLOAD_DIR']])
