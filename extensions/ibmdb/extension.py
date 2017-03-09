@@ -38,7 +38,7 @@ CONSTANTS = {
     'PHP_ARCH': '64',           # if not 64, 32-bit is assumed
     'PHP_THREAD_SAFETY': 'nts', # if not ts, nts is assumed, case-insensitive
     'PHPIZE': {
-        '5': 'phpize5',
+        '5': 'phpize',
         '7.0': 'phpize7.0',
     },
 }
@@ -129,7 +129,7 @@ class IBMDBInstaller(ExtensionHelper):
 
         self._phpExtnDir = os.path.join(self._phpExtnDir, self._findPhpExtnBaseDir())
         self._phpApi, self._phpZts = self._parsePhpApi()
-        self.install_phpDevTools()
+        #self.install_phpDevTools()
         self.install_phpsource()
         self.install_clidriver()
         self.install_buildtools()
@@ -199,7 +199,7 @@ class IBMDBInstaller(ExtensionHelper):
         #verPatterns = list()
         #for index, subver in verSubver:
         #    pass
-        phpizeFile = 'phpize5'
+        phpizeFile = 'phpize'
         return phpizeFile
 
     def _findPhpExtnBaseDir(self):
