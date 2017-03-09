@@ -129,7 +129,7 @@ class IBMDBInstaller(ExtensionHelper):
 
         self._phpExtnDir = os.path.join(self._phpExtnDir, self._findPhpExtnBaseDir())
         self._phpApi, self._phpZts = self._parsePhpApi()
-        self.install_phpDevTools(install)
+        self.install_phpDevTools()
         self.install_phpsource()
         self.install_clidriver()
         self.install_buildtools()
