@@ -233,13 +233,11 @@ class IBMDBInstaller(ExtensionHelper):
             self._ctx['PDO_IBM_DLFILE'],
             True)
 
-        #rmExtns = '*_nts.so' if CONSTANTS['PHP_THREAD_SAFETY'] == 'ts' else '*_ts.so'
-        #self._runCmd(os.environ, tempDir, ['rm', '-f', rmExtns])
-        self._runCmd(os.environ, tempDir,
+        self._runCmd(os.environ, extnDownloadDir,
             ['mv', 'ibm_db2*' + CONSTANTS['PHP_THREAD_SAFETY'] + '.so', os.path.join(self._phpExtnDir, 'ibm_db2.so')])
-        self._runCmd(os.environ, tempDir,
+        self._runCmd(os.environ, extnDownloadDir,
             ['mv', 'pdo_ibm*' + CONSTANTS['PHP_THREAD_SAFETY'] + '.so', os.path.join(self._phpExtnDir, 'pdo_ibm.so')])
-        self._runCmd(os.environ, tempDir, ['rm', '-rf', extnDownloadDir])
+        self._runCmd(os.environ, extnDownloadDir, ['rm', '-rf', extnDownloadDir])
 
         self._modifyPhpIni()
 
