@@ -177,7 +177,7 @@ class IBMDBInstaller(ExtensionHelper):
             shutil.copy(fileToInstall, installDir)
             return installDir
 
-    def _runCmd(self, environ, currWorkDir, cmd, displayRunLog=False):
+    def _runCmd(self, environ, currWorkDir, cmd, displayRunLog=True):
         stringioWriter = StringIO.StringIO()
         try:
             stream_output(stringioWriter,            #sys.stdout,
