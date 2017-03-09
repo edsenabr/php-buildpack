@@ -318,8 +318,9 @@ class IBMDBInstaller(ExtensionHelper):
 
         self._logMsg('Path is now: ' + self._compilationEnv['PATH'])
         phpizeSh = self._phpBinDir + '/phpize'
-        self._runCmd(self._compilationEnv, self._phpizeDir, ['chmod', '777', phpizeSh])
-        self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], [phpizeSh])
+        self._logMsg('PHPize is: ' + phpizeSh)
+        #self._runCmd(self._compilationEnv, self._phpizeDir, ['chmod', '777', phpizeSh])
+        self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], [phpizeSh], True)
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['./configure', '--with-IBM_DB2=' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']])
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['make'])
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['make', 'install'])
