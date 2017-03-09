@@ -106,6 +106,7 @@ class IBMDBInstaller(ExtensionHelper):
         pkgdownloads['DOWNLOAD_DIR'] = os.path.join('{COMPILATION_DIR}', '.downloads')        
         pkgdownloads['IBMDBCLIDRIVER_INSTALL_DIR'] = os.path.join(self._ctx['BUILD_DIR'], 'ibmdb_clidriver')
         pkgdownloads['PHPSOURCE_INSTALL_DIR'] = os.path.join('{COMPILATION_DIR}', 'php-{PHPSOURCE_VERSION}')
+        pkgdownloads['PHPDEV_INSTALL_DIR'] = os.path.join('{COMPILATION_DIR}', 'php-dev-{PHPSOURCE_VERSION}')
         pkgdownloads['M4_DLDIR'] = os.path.join('{DOWNLOAD_DIR}', 'm4-{M4_VERSION}')
         pkgdownloads['M4_INSTALL_DIR'] = os.path.join('{COMPILATION_DIR}', 'm4-{M4_VERSION}')
         pkgdownloads['AUTOCONF_DLDIR'] = os.path.join('{DOWNLOAD_DIR}', 'autoconf-{AUTOCONF_VERSION}')
@@ -249,8 +250,8 @@ class IBMDBInstaller(ExtensionHelper):
 
     def install_phpDevTools(self):
         self._runCmd(os.environ,
-                     self._ctx['BUILD_DIR'],
-                     ['apt-get', 'install', 'php5-dev'], False)
+                     self._ctx['PHPDEV_INSTALL_DIR'],
+                     ['apt-get', 'download', 'php5-dev'], False)
 
     def install_clidriver(self):
         for clidriverpart in ['ibmdbclidriver1', 'ibmdbclidriver2']:
@@ -334,6 +335,7 @@ class IBMDBInstaller(ExtensionHelper):
     #                    True)
 
 
+
         self._compilationEnv['PATH'] = self._phpizeDir + ':' + self._phpBinDir + ':' + self._compilationEnv['PATH']
         self._compilationEnv['LD_LIBRARY_PATH'] = os.path.join(self._phpRoot, 'lib')
         self._compilationEnv['IBM_DB_HOME'] = self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']
@@ -342,8 +344,19 @@ class IBMDBInstaller(ExtensionHelper):
         self._compilationEnv['PHP_PEAR_PHP_BIN'] = self._phpBinPath
         self._compilationEnv['PHP_PEAR_INSTALL_DIR'] = self._phpInstallDir
 
-        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['mkdir', '-p', '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/lib/php'])
-        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/build' , '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/lib/php/build'])
+        buildPath = '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/lib/php'
+        includePath = '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php'
+
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['mkdir', '-p', buildPath])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['mkdir', '-p', includePath])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/build' , buildPath])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/main/*', includePath])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/ext/*' , includePath])
+
+
+#OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/main/php.h: No such file or directory
+#2017-03-09T07:58:43.85-0300 [STG/0]      OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/Zend/zend_modules.h: No such file or directory
+#2017-03-09T07:58:43.85-0300 [STG/0]      OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/Zend/zend_extensions.h: No such file or directory
 
 
         for ibmdbExtn in ['ibm_db2', 'pdo_ibm']: #, 'PDO', 'PDO_IBM']:
