@@ -342,6 +342,9 @@ class IBMDBInstaller(ExtensionHelper):
         self._compilationEnv['PHP_PEAR_PHP_BIN'] = self._phpBinPath
         self._compilationEnv['PHP_PEAR_INSTALL_DIR'] = self._phpInstallDir
 
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['mkdir', '-p', '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/lib/php'])
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._phpRoot , '/tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/lib/php/build'])
+
 
         for ibmdbExtn in ['ibm_db2', 'pdo_ibm']: #, 'PDO', 'PDO_IBM']:
             #self._install_direct(
