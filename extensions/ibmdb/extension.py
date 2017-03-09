@@ -352,19 +352,15 @@ class IBMDBInstaller(ExtensionHelper):
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'], buildPath + '/php' ])
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'], includePath + '/php' ])
 
-        self._logMsg('Showinc content of : ' + buildPath)
-        self._runCmd(os.environ, buildPath + '/php', ['find', '.'])
+        #self._logMsg('Showinc content of : ' + buildPath)
+        #self._runCmd(os.environ, buildPath + '/php', ['find', '.'])
 
-        self._logMsg('Showinc content of : ' + includePath)
-        self._runCmd(os.environ, includePath + '/php', ['find', '.'])
-
-
-#OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/main/php.h: No such file or directory
-#2017-03-09T07:58:43.85-0300 [STG/0]      OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/Zend/zend_modules.h: No such file or directory
-#2017-03-09T07:58:43.85-0300 [STG/0]      OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/Zend/zend_extensions.h: No such file or directory
+        #self._logMsg('Showinc content of : ' + includePath)
+        #self._runCmd(os.environ, includePath + '/php', ['find', '.'])
 
 
-        for ibmdbExtn in ['ibm_db2', 'pdo_ibm']: #, 'PDO', 'PDO_IBM']:
+
+        for ibmdbExtn in ['ibm_db2', 'pdo', 'pdo_ibm']: #, 'PDO', 'PDO_IBM']:
             #self._install_direct(
             #    self._ctx[ibmdbExtn.upper() + '_DLURL'],
             #    None,
