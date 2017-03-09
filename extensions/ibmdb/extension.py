@@ -46,10 +46,17 @@ PKGDOWNLOADS =  {
     'IBMDBCLIDRIVER2_DLFILE': 'ibm_data_server_driver_for_odbc_cli_linuxx64_v{IBMDBCLIDRIVER_VERSION}_2of2.tar.gz',
     'IBMDBCLIDRIVER2_DLURL': '{IBMDBCLIDRIVER_REPOSITORY}/raw/master/{IBMDBCLIDRIVER2_DLFILE}',
 
-    'IBM_DB2_VERSION': '1.9.9',
-    'IBM_DB2_REPOSITORY': 'https://github.com/fishfin/ibmdb-drivers-linuxx64',
-    'IBM_DB2_DLFILE': 'ibm_db2-v{IBM_DB2_VERSION}.tar.gz',
-    'IBM_DB2_DLURL': '{IBM_DB2_REPOSITORY}/raw/master/{IBM_DB2_DLFILE}',
+    #'IBM_DB2_VERSION': '1.9.9',
+    #'IBM_DB2_REPOSITORY': 'https://github.com/fishfin/ibmdb-drivers-linuxx64',
+    #'IBM_DB2_DLFILE': 'ibm_db2-v{IBM_DB2_VERSION}.tar.gz',
+    #'IBM_DB2_DLURL': '{IBM_DB2_REPOSITORY}/raw/master/{IBM_DB2_DLFILE}',
+
+    'PDO_IBM_VERSION': '11.1',
+    'PDO_IBM_REPOSITORY': 'https://github.com/fishfin/ibmdb-drivers-linuxx64',
+    'PDO_IBM_DLFILE': 'db2_db2driver_for_php64_linuxx64_v{IBM_DB2_VERSION}.tar.gz',
+    'PDO_IBM_DLURL': '{IBM_DB2_REPOSITORY}/raw/master/{IBM_DB2_DLFILE}',
+
+
 }
 
 class IBMDBInstaller(ExtensionHelper):
@@ -175,9 +182,9 @@ class IBMDBInstaller(ExtensionHelper):
             pos = lines.index(extns[-1]) + 1
         else:
             pos = lines.index('#{PHP_EXTENSIONS}\n') + 1
-        lines.insert(pos, 'extension=ibm_db2.so\n')
-        #lines.insert(pos, 'extension=pdo_ibm.so\n')
-        #lines.append('\n')
+        lines.insert(pos, 'extension=ibm_db2_5.3.6_nts.so\n')
+        lines.insert(pos, 'extension=pdo_ibm_5.3.6_nts.so\n')
+        lines.append('\n')
         self._log.info('Writing ' + self._phpIniPath)
         with open(self._phpIniPath, 'wt') as phpIni:
             for line in lines:
@@ -195,7 +202,8 @@ class IBMDBInstaller(ExtensionHelper):
         self._logMsg ('Installed IBMDB CLI Drivers to ' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR'])
 
     def install_extensions(self):
-        for ibmdbExtn in ['IBM_DB2']: #, 'PDO', 'PDO_IBM']:
+        for ibmdbExtn in ['PDO_IBM']: #, 'PDO', 'PDO_IBM']:
+        #for ibmdbExtn in ['IBM_DB2']: #, 'PDO', 'PDO_IBM']:
             extnDownloadDir = os.path.join(self._ctx['DOWNLOAD_DIR'],
                                        ibmdbExtn.lower() + '_extn-' + self._ctx[ibmdbExtn + '_VERSION'])
             self._install_direct(
