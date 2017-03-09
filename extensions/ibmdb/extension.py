@@ -299,13 +299,13 @@ class IBMDBInstaller(ExtensionHelper):
     def install_extensions(self):
         pecl = self._phpBinDir + '/pecl'
 
-        for ibmdbExtn in ['ibm_db2']: #, 'PDO', 'PDO_IBM']:
-            self._install_direct(
-                self._ctx[ibmdbExtn.upper() + '_DLURL'],
-                None,
-                self._ctx[ibmdbExtn.upper() + '_DLDIR'],
-                self._ctx[ibmdbExtn.upper() + '_DLFILE'],
-                True)
+        for ibmdbExtn in ['ibm_db2', 'pdo_ibm']: #, 'PDO', 'PDO_IBM']:
+            #self._install_direct(
+            #    self._ctx[ibmdbExtn.upper() + '_DLURL'],
+            #    None,
+            #    self._ctx[ibmdbExtn.upper() + '_DLDIR'],
+            #    self._ctx[ibmdbExtn.upper() + '_DLFILE'],
+            #    True)
             self._runCmd(self._buildPeclEnv(),
                          self._ctx['BUILD_DIR'],
                          [pecl, 'install', ibmdbExtn],
@@ -322,7 +322,6 @@ class IBMDBInstaller(ExtensionHelper):
         phpizeSh = self._phpBinDir + '/phpize'
         self._logMsg('PHPize is: ' + phpizeSh)
         #self._runCmd(self._compilationEnv, self._phpizeDir, ['chmod', '777', phpizeSh])
-        self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], [phpizeSh], True)
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], [phpizeSh], True)
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['./configure', '--with-IBM_DB2=' + self._ctx['IBMDBCLIDRIVER_INSTALL_DIR']])
         self._runCmd(self._compilationEnv, self._ctx['IBM_DB2_DLDIR'], ['make'])
