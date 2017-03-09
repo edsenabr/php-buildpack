@@ -186,7 +186,7 @@ class IBMDBInstaller(ExtensionHelper):
                           cwd=currWorkDir,
                           shell=True)
             if displayRunLog:
-                self._log.info(stringioWriter.getvalue())
+                self._logMsg(stringioWriter.getvalue())
         except:
             print '-----> Command failed'
             print stringioWriter.getvalue()
