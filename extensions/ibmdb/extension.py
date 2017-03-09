@@ -353,8 +353,11 @@ class IBMDBInstaller(ExtensionHelper):
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/main/*', includePath])
         self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ln', '-s', self._ctx['PHPSOURCE_INSTALL_DIR'] + '/ext/*' , includePath])
 
-        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ls', '-l', buildPath])
-        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['ls', '-l', includePath])
+        self._logMsg('Showinc content of : ' + buildPath)
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['find', buildPath])
+
+        self._logMsg('Showinc content of : ' + includePath)
+        self._runCmd(os.environ, self._ctx['BUILD_DIR'], ['find', includePath])
 
 
 #OUT grep: /tmp/build/931e8e8a/binary-builder/ports/x86_64-linux-gnu/php/5.5.38/include/php/main/php.h: No such file or directory
